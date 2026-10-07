@@ -3,6 +3,7 @@ import dotenv from 'dotenv'
 import mongoose from 'mongoose'
 import customerRoutes from './routes/customer_routes.js'
 import cookieParser from 'cookie-parser'
+import cors from 'cors'
 
 
 dotenv.config()
@@ -18,10 +19,15 @@ mongoose.connect(process.env.dbURL).then (()=>{
     console.log('Database connection failed', err)
 })
 
+app.use(cors({
+    origin: 'http://localhost:5173',
+    credentials: true
+}))
 
 app.use(express.json())
 app.use(cookieParser())
 app.use('/customer',customerRoutes)
+
 
 
 
