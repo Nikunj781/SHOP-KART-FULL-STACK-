@@ -8,6 +8,6 @@ const customerRoutes = express.Router()
 customerRoutes.post("/register", registerUser)
 customerRoutes.post("/login", loginUser)
 customerRoutes.get("/me", isAuthenticated, getUser)
-customerRoutes.post("/logout", isAuthenticated, logoutUser)
+customerRoutes.post("/logout", logoutUser)
 
 export default customerRoutes
