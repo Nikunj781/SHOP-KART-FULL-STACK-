@@ -19,7 +19,7 @@ const Login = () => {
       await axiosInstance.post('customers/login', { email, password })
       await fetchCustomer()
       navigate('/home')
-    } catch (err) {
+    } catch  {
       setError('Invalid Credentials')
     }
   }

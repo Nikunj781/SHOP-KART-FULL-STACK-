@@ -2,6 +2,7 @@ import express from 'express'
 import dotenv from 'dotenv'
 import mongoose from 'mongoose'
 import customerRoutes from './routes/customer_routes.js'
+import productRoutes from './routes/product_routes.js'
 import cookieParser from 'cookie-parser'
 import cors from 'cors'
 
@@ -27,6 +28,7 @@ app.use(cors({
 app.use(express.json())
 app.use(cookieParser())
 app.use('/customers',customerRoutes)
+app.use('/products',productRoutes)
 
 
 

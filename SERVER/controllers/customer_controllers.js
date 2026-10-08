@@ -116,7 +116,7 @@ export const changePassword = async (req, res) => {
             return res.status(400).json({ success: false, message: 'New password must be at least 6 characters' })
         }
 
-        const customer = await Customer.findById(req.user._id)
+        const customer = await Customer.findById(req.customer._id)
 
         const isMatch = await bcrypt.compare(oldPassword, customer.password)
         if (!isMatch) {

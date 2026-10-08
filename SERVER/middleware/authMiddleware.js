@@ -21,11 +21,6 @@ export const isAuthenticated = async (req, res, next) => {
         req.customer = customer
         next()
 
-        //new line added by nikunj
-        return res.status(200).json({
-            message: "User Authenticated",
-            userData: req.customer
-        })
 
     } catch (err) {
         return res.status(401).json({ message: 'Unauthorized' })
