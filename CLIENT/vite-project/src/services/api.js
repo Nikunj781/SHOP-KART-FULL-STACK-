@@ -7,3 +7,12 @@ export const axiosInstance = axios.create({
     },
     withCredentials: true
 })
+
+// Product APIs
+export const getAllProducts = (params) => {
+    return axiosInstance.get('/products', { params })
+}
+
+export const getProductById = (id) => {
+    return axiosInstance.get(`/products/${id}`)
+}
