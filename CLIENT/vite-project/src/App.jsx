@@ -1,36 +1,28 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
-
-import Landing from './pages/Landing'
-import Home from './pages/Home'
-import Login from './pages/Login'
-import Signup from './pages/Signup'
-import Profile from './pages/Profile'
-
-import { AuthProvider } from './context/authContext'
-
-import PublicRoute from './routes/PublicRoute'
-import ProtectedRoute from './routes/ProtectedRoute'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import Register from './pages/Register.jsx'
+import Login from './pages/Login.jsx'
+import Home from './pages/Home.jsx'
+import ProtectedRoute from './routes/ProtectedRoute.jsx'
+import PublicRoute from './routes/PublicRoute.jsx'
+import { AuthProvider } from './context/authContext.jsx'
 
 function App() {
   return (
-    <AuthProvider>
-      <BrowserRouter>
-
+    <BrowserRouter>
+      <AuthProvider>
         <Routes>
 
-          {/* Public Routes */}
-          <Route path="/" element={<PublicRoute> <Landing /> </PublicRoute>} />
-          <Route path="/login" element={<PublicRoute> <Login /> </PublicRoute>} />
-          <Route path="/signup" element={<PublicRoute> <Signup /> </PublicRoute>} />
+          <Route path="/" element={<Navigate to="/login" replace />} />
 
-          {/* Protected Routes */}
-          <Route path="/home" element={<ProtectedRoute> <Home /> </ProtectedRoute>} />
-          <Route path="/profile/:username" element={<ProtectedRoute> <Profile /> </ProtectedRoute>} />
+          <Route path="/register" element={<PublicRoute><Register /></PublicRoute>} />
+
+          <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
+
+          <Route path="/home" element={<ProtectedRoute><Home /></ProtectedRoute>} />
 
         </Routes>
-
-      </BrowserRouter>
-    </AuthProvider>
+      </AuthProvider>
+    </BrowserRouter>
   )
 }
 
