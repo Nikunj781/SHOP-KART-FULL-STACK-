@@ -1,18 +1,31 @@
 import Product from "../models/product_model.js"
 import mongoose from "mongoose"
+import { uploadToCloudinary } from "../utils/cloudinary.js"
 
 
 export const createProduct = async (req, res) => {
     try {
-        const { name, description, price, category, image, stock } = req.body
+        const { name, description, category } = req.body
+        const price = Number(req.body.price)
+        const stock = Number(req.body.stock)
 
-        if (typeof price !== "number" || price < 0) {
-            return res.status(400).json({ message: "price must be a positive number" })
+        if (!name || !description || !category || (!req.file && !req.body.image) ||
+            !req.body.price || req.body.stock === undefined || req.body.stock === '') {
+            return res.status(400).json({ message: "All fields are required" })
         }
 
+        if (!(price > 0)) {
+            return res.status(400).json({ message: "price must be greater than 0" })
+        }
 
-        if (!name || !description || !price || !category || !image || !stock) {
-            return res.status(400).json({ message: "All fields are required" })
+        if (!(stock >= 0)) {
+            return res.status(400).json({ message: "stock must be 0 or more" })
+        }
+
+        let image = req.body.image
+        if (req.file) {
+            const result = await uploadToCloudinary(req.file.buffer, req.file.mimetype)
+            image = result.secure_url
         }
 
         const newProduct = await Product.create({
