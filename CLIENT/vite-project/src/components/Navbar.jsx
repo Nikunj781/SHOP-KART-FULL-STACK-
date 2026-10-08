@@ -21,6 +21,7 @@ const Navbar = () => {
       <Link to="/home" className="text-lg font-bold">ShopKart</Link>
       <div className="flex items-center gap-4">
         <Link to="/products" className="text-sm">Products</Link>
+        <Link to="/wishlist" className="text-sm">Wishlist</Link>
         <button onClick={handleLogout} className="rounded bg-white px-4 py-1.5 text-sm font-semibold text-black">
           Logout
         </button>
