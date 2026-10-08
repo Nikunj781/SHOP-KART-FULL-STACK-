@@ -7,8 +7,8 @@ export const AuthProvider = ({ children }) => {
   const [customer, setCustomer] = useState(null)
   const [loading, setLoading] = useState(true)
 
-  const fetchCustomer = () => {
-    return axiosInstance
+  const fetchCustomer = async () => {
+    return await axiosInstance
       .get('customers/me')
       .then((response) => setCustomer(response.data.userData))
       .catch(() => setCustomer(null))
@@ -20,9 +20,7 @@ export const AuthProvider = ({ children }) => {
   }, [])
 
   return (
-    <AuthContext.Provider
-      value={{ customer, setCustomer, loading, fetchCustomer }}
-    >
+    <AuthContext.Provider value={{ customer, setCustomer, loading, fetchCustomer }}>
       {children}
     </AuthContext.Provider>
   )

@@ -1,36 +1,36 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
-import Register from './pages/Register.jsx'
-import Login from './pages/Login.jsx'
-import Home from './pages/Home.jsx'
-import { AuthProvider, useAuth } from './context/authContext.jsx'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
-function ProtectedRoute({ children }) {
-  const { customer, loading } = useAuth()
+import Landing from './pages/Landing'
+import Home from './pages/Home'
+import Login from './pages/Login'
+import Signup from './pages/Signup'
+import Profile from './pages/Profile'
 
-  if (loading) return <p className="p-6">Loading...</p>
-  if (!customer) return <Navigate to="/login" replace />
-  return children
-}
+import { AuthProvider } from './context/authContext'
+
+import PublicRoute from './routes/PublicRoute'
+import ProtectedRoute from './routes/ProtectedRoute'
 
 function App() {
   return (
-    <BrowserRouter>
-      <AuthProvider>
+    <AuthProvider>
+      <BrowserRouter>
+
         <Routes>
-          <Route path="/" element={<Navigate to="/login" replace />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
-          <Route
-            path="/home"
-            element={
-              <ProtectedRoute>
-                <Home />
-              </ProtectedRoute>
-            }
-          />
+
+          {/* Public Routes */}
+          <Route path="/" element={<PublicRoute> <Landing /> </PublicRoute>} />
+          <Route path="/login" element={<PublicRoute> <Login /> </PublicRoute>} />
+          <Route path="/signup" element={<PublicRoute> <Signup /> </PublicRoute>} />
+
+          {/* Protected Routes */}
+          <Route path="/home" element={<ProtectedRoute> <Home /> </ProtectedRoute>} />
+          <Route path="/profile/:username" element={<ProtectedRoute> <Profile /> </ProtectedRoute>} />
+
         </Routes>
-      </AuthProvider>
-    </BrowserRouter>
+
+      </BrowserRouter>
+    </AuthProvider>
   )
 }
 
