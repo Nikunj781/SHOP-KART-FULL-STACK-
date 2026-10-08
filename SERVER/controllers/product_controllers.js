@@ -34,18 +34,40 @@ export const createProduct = async (req, res) =>{
     }
 }
 
-export const getAllProducts = async (req, res) =>{
-    try{
-        const products = await Product.find().select("name price category image stock")
+export const getAllProducts = async (req, res) => {
+    try {
+
+        const { search, category } = req.query
+
+        const filter = {}
+
+        // Search by product name
+        if (search) {
+            filter.name = {
+                $regex: search,
+                $options: "i"
+            }
+        }
+
+        // Filter by category
+        if (category) {
+            filter.category = category
+        }
+
+        const products = await Product.find(filter)
+            .select("name price category image stock")
 
         return res.status(200).json({
-            "success": true,
-            "count": Product.length,
+            success: true,
+            count: products.length,
             products
         })
 
-    } catch(error){
-        return res.status(500).json({message: "Internal Server Error"})
+    } catch (error) {
+        return res.status(500).json({
+            message: "Internal Server Error",
+            error: error.message
+        })
     }
 }
 
