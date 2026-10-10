@@ -4,6 +4,8 @@ import mongoose from 'mongoose'
 import customerRoutes from './routes/customer_routes.js'
 import productRoutes from './routes/product_routes.js'
 import wishlistRoutes from './routes/wishlist_routes.js'
+import cartRoutes from './routes/cart_routes.js'
+import orderRoutes from './routes/order_routes.js'
 import cookieParser from 'cookie-parser'
 import cors from 'cors'
 
@@ -31,6 +33,8 @@ app.use(cookieParser())
 app.use('/customers',customerRoutes)
 app.use('/products',productRoutes)
 app.use('/wishlist',wishlistRoutes)
+app.use('/cart',cartRoutes)
+app.use('/orders',orderRoutes)
 
 
 
