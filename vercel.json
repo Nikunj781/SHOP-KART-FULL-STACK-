@@ -1,0 +1,19 @@
+{
+  "version": 2,
+  "buildCommand": "cd CLIENT/vite-project && npm install && npm run build",
+  "outputDirectory": "CLIENT/vite-project/dist",
+  "rewrites": [
+    { "source": "/customers/(.*)", "destination": "/api" },
+    { "source": "/customers", "destination": "/api" },
+    { "source": "/products/(.*)", "destination": "/api" },
+    { "source": "/products", "destination": "/api" },
+    { "source": "/wishlist/(.*)", "destination": "/api" },
+    { "source": "/wishlist", "destination": "/api" },
+    { "source": "/cart/(.*)", "destination": "/api" },
+    { "source": "/cart", "destination": "/api" },
+    { "source": "/orders/(.*)", "destination": "/api" },
+    { "source": "/orders", "destination": "/api" },
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
+}
+

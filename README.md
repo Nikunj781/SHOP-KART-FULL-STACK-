@@ -23,6 +23,7 @@
 - [API Reference](#-api-reference)
 - [Environment Variables](#-environment-variables)
 - [Getting Started](#-getting-started)
+- [Deployment to Vercel](#-deployment-to-vercel)
 - [Razorpay Test Mode Guide](#-razorpay-test-mode-guide)
 - [Security & Business Rules](#-security--business-rules)
 
@@ -394,6 +395,43 @@ npm install
 npm run dev
 ```
 The client will launch on `http://localhost:5173`.
+
+---
+
+## 🌐 Deployment to Vercel
+
+ShopKart is configured for **Unified Full-Stack Deployment** on Vercel. Both the React frontend and Express serverless backend deploy together under the exact same domain, ensuring seamless 1st-party cookie authentication without third-party cookie restrictions or CORS issues.
+
+### Option A: Deploy via GitHub (Recommended)
+
+1. **Commit and push** your latest changes to GitHub:
+   ```bash
+   git add .
+   git commit -m "Configure project for Vercel deployment"
+   git push origin main
+   ```
+2. Go to [Vercel Dashboard](https://vercel.com/dashboard) and click **"Add New..." > "Project"**.
+3. Import your GitHub repository (`SHOP-KART-FULL-STACK-`).
+4. **Project Configuration**:
+   - **Framework Preset**: `Vite` or `Other`
+   - **Root Directory**: Leave as `./` (Root)
+   - The root `vercel.json` and `package.json` will automatically configure:
+     - Frontend build: `cd CLIENT/vite-project && npm install && npm run build`
+     - Output Directory: `CLIENT/vite-project/dist`
+     - Backend API routes: `/api` (powered by `api/index.js` serverless function)
+5. **Environment Variables**:
+   In the **Environment Variables** section on Vercel, add the following:
+   | Variable Name | Value |
+   |---|---|
+   | `NODE_ENV` | `production` |
+   | `dbURL` | Your MongoDB Atlas connection string |
+   | `JWT_SECRET` | Your JWT secret key |
+   | `CLOUDINARY_CLOUD_NAME` | Your Cloudinary Cloud Name |
+   | `CLOUDINARY_API_KEY` | Your Cloudinary API Key |
+   | `CLOUDINARY_API_SECRET` | Your Cloudinary API Secret |
+   | `RAZORPAY_KEY_ID` | Your Razorpay Key ID |
+   | `RAZORPAY_KEY_SECRET` | Your Razorpay Key Secret |
+6. Click **Deploy**. Vercel will build and deploy your entire full-stack application!
 
 ---
 

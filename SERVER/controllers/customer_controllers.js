@@ -6,6 +6,7 @@ const cookieOptions = {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
     sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+    path: '/',
     expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000)
 }
 
@@ -97,7 +98,8 @@ export const logoutUser = async (req, res) => {
     res.clearCookie("token", {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
-        sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax'
+        sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+        path: '/'
     })
 
     return res.status(200).json({ success: true, message: 'Logged out successfully' })
